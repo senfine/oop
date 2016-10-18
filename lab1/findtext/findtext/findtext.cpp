@@ -1,57 +1,54 @@
-﻿// findtext.cpp : Defines the entry point for the console application.
-//
-
-#include "stdafx.h"
-
+﻿#include "stdafx.h"
 #include <iostream>
-#include <functional>
-#include <string>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
 
-using FindStringCallback = function<void(int lineIndex, const string& line, size_t foundPos)>;
-// using позволяет сделать то же, что и typedef, но даже больше.
-//typedef function<void(int lineIndex, const string& line, size_t foundPos)> FindStringCallback;
 
-bool FindStingInStream(istream & haystack,
-	const string& needle,
-	const FindStringCallback & callback = FindStringCallback())
+int main(int argc, char *argv[]) 
 {
-	string line;
-	bool found = false;
-	for (int lineIndex = 1; getline(haystack, line); ++lineIndex)
+	ifstream in;
+	string buffer, sought;
+	int cnt = 0;
+	bool is_find = false;
+
+	if (argc != 3) 
 	{
-		auto pos = line.find(needle);
-		if (pos != string::npos)
+		cout << "Arguments is invalid\n";
+		return 1;
+	}
+
+	in.open(argv[1]);
+	sought = argv[2];
+
+	if (!in.is_open())
+	{
+		cout << "File not exists\n";
+		return 1;
+	}
+
+
+	while (!in.eof()) 
+	{
+		getline(in, buffer);
+
+		cnt++;
+		if (buffer.find(sought) != string::npos) 
 		{
-			found = true;
-			// Передаем в функцию обратного вызова информацию о первом найденном вхождении подстроки
-			if (callback)
-			{
-				callback(lineIndex, line, pos);
-			}
+			cout << cnt << "\n";
+			is_find = true;
 		}
 	}
-	return found;
-}
 
-int main(int argc, char *argv[])
-{
-	if (argc != 3)
+	if (is_find) 
 	{
-		cout << "Wrong command line\n";
-		cout << "Usage: findtext.exe <file name> <text to search>\n";
+		return 0;
+	}
+	else 
+	{
+		cout << "Text not found\n";
 		return 1;
 	}
-
-	ifstream input(argv[1]);
-	if (!FindStingInStream(input, argv[2]))
-	{
-		return 1;
-	}
-
-    return 0;
 }
-
