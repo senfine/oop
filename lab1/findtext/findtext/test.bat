@@ -10,6 +10,12 @@ if errorlevel 1 goto err
 fc "%TEMP%\output1.txt" readme-Project.txt
 if errorlevel 1 goto err
 
+rem Поиск текста, встречающегося на нескольких строках
+%findtext% ReadMe.txt findtext > "%TEMP%\output1.txt"
+if errorlevel 1 goto err
+fc "%TEMP%\output1.txt" readme-findtext.txt
+if errorlevel 1 goto err
+
 rem Поиск несуществующего текста в файле
 %findtext% ReadMe.txt Kozlovsky
 if not errorlevel 1 goto err
