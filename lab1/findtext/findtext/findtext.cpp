@@ -15,7 +15,7 @@ using FindStringCallback = function<void(int lineIndex, const string& line, size
 // using позволяет сделать то же, что и typedef, но даже больше.
 //typedef function<void(int lineIndex, const string& line, size_t foundPos)> FindStringCallback;
 
-bool FindStingInStream(istream & haystack,
+bool FindStringInStream(istream & haystack,
 	const string& needle,
 	const FindStringCallback & callback = FindStringCallback())
 {
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 	}
 
 	ifstream input(argv[1]);
-	if (!FindStingInStream(input, argv[2]))
+	if (!FindStringInStream(input, argv[2]))
 	{
 		return 1;
 	}
