@@ -37,6 +37,7 @@ bool FindStringInStream(istream & haystack,
 	return found;
 }
 
+
 int main(int argc, char *argv[])
 {
 	if (argc != 3)
