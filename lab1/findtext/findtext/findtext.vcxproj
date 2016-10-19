@@ -154,6 +154,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="readme-Project.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -1,11 +1,16 @@
 set findtext="%~1"
 
+rem При запуске с недостаточным количеством аргументов сообщаем об ошибке
 %findtext% > nul
 if not errorlevel 1 goto err 
 
-%findtext% ReadMe.txt Project
+rem Поиск существующего текста в файле
+%findtext% ReadMe.txt Project > "%TEMP%\output1.txt"
+if errorlevel 1 goto err
+fc "%TEMP%\output1.txt" readme-Project.txt
 if errorlevel 1 goto err
 
+rem Поиск несуществующего текста в файле
 %findtext% ReadMe.txt Kozlovsky
 if not errorlevel 1 goto err
 
