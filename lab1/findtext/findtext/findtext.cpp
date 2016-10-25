@@ -45,16 +45,28 @@ int main(int argc, char *argv[])
 		cout << "Wrong command line\n";
 		cout << "Usage: findtext.exe <file name> <text to search>\n";
 		return 1;
-	}
+	} 
 
-	ifstream input(argv[1]);
-	if (!FindStringInStream(input, argv[2], [](int lineIndex, const string& line, size_t foundPos) {
-		cout << "found in line " << lineIndex << '\n';
-	}))
-	{
+	string needle = argv[2];
+	if (needle.empty()) {
+		cout << "Needle line is empty\n";
 		return 1;
 	}
 
+	ifstream input(argv[1]);
+
+	if (input.is_open()){
+		if (!FindStringInStream(input, needle, [](int lineIndex, const string& line, size_t foundPos) {
+				cout << "found in line " << lineIndex << '\n';
+		}))
+		{
+			return 1;
+		}
+	} else {
+		cout << "Could not open file\n";
+		return 1;
+	}
+	
     return 0;
 }
 
