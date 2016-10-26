@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 	ifstream input(argv[1]);
 
 	if (input.is_open()){
-		if (!FindStringInStream(input, needle, [](int lineIndex, const string& line, size_t foundPos) {
+		if (!FindStringInStream(input, needle, [](size_t lineIndex, const string& /*line*/, size_t /*foundPos*/) {
 				cout << "found in line " << lineIndex << '\n';
 		}))
 		{
