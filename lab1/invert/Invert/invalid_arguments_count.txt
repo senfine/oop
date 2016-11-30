@@ -1,0 +1,3 @@
+Invalid arguments count:
+
+Usage: invert.exe <matrix file>

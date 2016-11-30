@@ -21,6 +21,8 @@
     <Text Include="result.txt" />
     <Text Include="test1.txt" />
     <Text Include="test2.txt" />
+    <Text Include="readme-notexist.txt" />
+    <Text Include="invalid_arguments_count.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

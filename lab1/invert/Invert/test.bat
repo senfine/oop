@@ -19,3 +19,18 @@ rem Ќесовпадение ответов с результатом
 echo answers are not the same
 pause
 exit /b 1
+
+
+rem добавать тесты дл€ проверки аргументов и тест с пустой матрицей
+
+rem ѕроверка на несуществующий файл
+%invert% NotExist.txt > "%TEMP%\output1.txt"
+if not errorlevel 1 goto err
+fc "%TEMP%\output1.txt" notexist.txt
+if errorlevel 1 goto err
+
+rem ѕроверка на неправильное количество параметров
+%invert% > "%TEMP%\output1.txt"
+if not errorlevel 1 goto err
+fc "%TEMP%\output1.txt" invalid_arguments_count.txt
+if errorlevel 1 goto err

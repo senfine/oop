@@ -10,7 +10,8 @@
 
 using namespace std;
 
-typedef double Matrix3x3[3][3];
+const unsigned MATRIX_SIZE = 3;
+typedef double Matrix3x3[MATRIX_SIZE][MATRIX_SIZE];
 
 // Функция вычисления алгебраического дополнения
 double FindCofactor(Matrix3x3 const& matrix, int row, int col)
@@ -21,15 +22,15 @@ double FindCofactor(Matrix3x3 const& matrix, int row, int col)
 	// Текущая позиция в минор
 	int mRow = 0, mCol = 0;
 
-	// Нахождение дополнительного минор
-	for (int i = 0; i < 3; i++)
+	// Нахождение дополнительного минора
+	for (int i = 0; i < MATRIX_SIZE; i++)
 	{
 		if (i == row)
 		{
 			continue;
 		}
 		mCol = 0;
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < MATRIX_SIZE; j++)
 		{
 			if (j == col)
 			{
@@ -54,9 +55,9 @@ double FindCofactor(Matrix3x3 const& matrix, int row, int col)
 // Нахождение матрицы алгебраических дополнений
 void FindCofactorMatrix(Matrix3x3 const& matrix, Matrix3x3 & cofactorMatrix)
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < MATRIX_SIZE; i++)
 	{
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < MATRIX_SIZE; j++)
 		{
 			cofactorMatrix[i][j] = FindCofactor(matrix, i, j);
 		}
@@ -66,9 +67,9 @@ void FindCofactorMatrix(Matrix3x3 const& matrix, Matrix3x3 & cofactorMatrix)
 // Считывание матрицы из файла
 void ReadMatrix(ifstream & input, Matrix3x3 & matrix)
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < MATRIX_SIZE; i++)
 	{
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < MATRIX_SIZE; j++)
 		{
 			input >> matrix[i][j];
 		}
@@ -87,9 +88,9 @@ double FindDeterminant(Matrix3x3 const& matrix)
 // Вывод обратной матрицы
 void PrintResult(Matrix3x3 const& cofactorMatrix, int determinant)
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < MATRIX_SIZE; i++)
 	{
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < MATRIX_SIZE; j++)
 		{
 			cout << fixed << setprecision(3) << cofactorMatrix[j][i] / determinant << " ";
 		}
