@@ -1,0 +1,14 @@
+beach:пляж
+car:машина
+home:дом
+house:дом
+кот:cat
+кошка:cat
+облако:cloud
+облачко:cloud
+помидор:tomato
+президент:president
+привет:hello
+собака:dog
+сыр:cheese
+яблоко:apple
