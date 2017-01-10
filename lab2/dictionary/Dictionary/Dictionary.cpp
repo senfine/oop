@@ -1,10 +1,20 @@
 #include "stdafx.h"
 #include "Dictionary.h"
+#include <string>
 
 using namespace std;
 using namespace boost;
 
 static const string EXIT_DICTIONARY = "...";
+
+string toLower(string input) 
+{
+	for (int i = 0; i < input.length(); i++) 
+	{
+		input[i] = tolower(input[i]);
+	}
+	return input;
+}
 
 bool IsEmptyFile(ifstream & file)
 {
@@ -40,6 +50,7 @@ bool ProcessingNewWords(string &newWord, Dictionary &dictionary)
 	bool dictionaryHasChanged = false;
 	if (!translationNewWord.empty())
 	{
+		translationNewWord = toLower(translationNewWord);
 		dictionary.emplace(newWord, translationNewWord);
 		dictionaryHasChanged = true;
 		cout << "Слово " << newWord << " сохранено в словаре как " << translationNewWord << ".\n";
@@ -55,7 +66,8 @@ bool FindTranslation(string inputWord, Dictionary &dictionary)
 {
 	bool find = false;
 	boost::optional<string> findWord;
-	to_lower(inputWord);
+	//to_lower(inputWord);
+	inputWord = toLower(inputWord);
 	auto iterator = dictionary.find(inputWord);
 	if (iterator != dictionary.end())
     {
@@ -103,6 +115,7 @@ void StartTranslation(Dictionary &dictionary, string const&dictionaryFileName)
 			if (!FindTranslation(inputWord, dictionary))
 			{
 				cout << "Неизвестное слово " << inputWord << ". Введите перевод или пустую строку для отказа.\n";
+				inputWord = toLower(inputWord);
 				dictionaryHasChanged = ProcessingNewWords(inputWord, dictionary);
 			}
 			cout << ">";
