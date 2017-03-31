@@ -14,26 +14,25 @@ using namespace std;
 vector<bool> GetPrimes(int upperBound)
 {
 	vector<bool> sieve;
-	for (int i = 0; i <= upperBound; ++i)
+	for (int i = 0; i < upperBound; ++i)
 	{
 		if (i % 2 != 0)
 			sieve.push_back(true);
 		else
 			sieve.push_back(false);
 	}
-
 	sieve[2] = true;
 
-	for (unsigned int i = 3; i <= upperBound; ++i)
+	for (long long i = 3; i <= upperBound; i++)
 	{
-		if (sieve[i])
+		if (sieve[static_cast<unsigned int>(i)])
 		{
-			for (unsigned int j = i * i; j <= upperBound; j += 2 * i)
+			for (long long j = i * i; j <= upperBound; j += 2 * i)
 			{
-				sieve[j] = false;
+				sieve[static_cast<unsigned int>(j)] = false;
 			}
 		}
-	}
+	}	
 	return sieve;
 }
 
@@ -42,7 +41,7 @@ set<int> GetPrimesSet(vector<bool> &numbers)
 	set<int> primes;
 	primes.emplace(2);
 
-	for (unsigned int i = 3; i < numbers.size(); ++i)
+	for (unsigned int i = 3; i <= numbers.size(); ++i)
 	{
 		if (numbers[i])
 			primes.emplace(i);
