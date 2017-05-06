@@ -6,50 +6,33 @@
 #include <cstdio>
 #include <string>
 #include <iostream>
+#include <iterator>
 
 using namespace std;
 
-vector<double> ImportNumbers(int argc, char *argv[]) 
+vector<double> ImportNumbers(istream & stream)
 {
-	char ** _EndPtr = (char **)malloc(sizeof(char*)); //выделяем память 
-	vector<double> numbers;
-	for (int i = 0; i < argc; ++i)
-	{
-		numbers.push_back(strtod(argv[i], _EndPtr));
-	}
-	free(_EndPtr); // освобождаем память
-	return numbers;
+	return move(vector<double>(istream_iterator<double>(stream), istream_iterator<double>()));
 }
 
-void PrintNumbers(vector<double> &numbers)
+// вывод в стандартный поток полученный массив
+void PrintNumbers(const vector<double> &numbers)
 {
-	for (int i = 1; i < numbers.size(); ++i)
-	{
-		printf("%f ", numbers[i]);
-	}
+	for (const double &x : numbers)
+			cout << x << " ";
 }
 
-vector<double> MathLogic(vector<double> &numbers)
+// вариант 5
+// Умножить каждый отрицательный элемент массива на 
+// произведение максимального и минимального элементов исходного массива 
+void MathLogic(vector<double> &numbers)
 {
-	double min = numbers[0];
-	double max = numbers[0];
-	for (int i = 0; i < numbers.size(); i++)
-	{
-		if (numbers[i] > max)
-		{
-			max = numbers[i];
-		}
-		if (numbers[i] < min)
-		{
-			min = numbers[i];
-		}
-	}
-	for (int i = 0; i < numbers.size(); i++)
-	{
-		if (numbers[i] < 0)
-		{
-			numbers[i] *= min * max;
-		}
-	}
-	return numbers;
+	auto result = minmax_element(numbers.begin(), numbers.end());
+
+	auto min = *result.first;
+	auto max = *result.second;
+
+	for (double& x : numbers)
+		if (x < 0)
+			x *= min * max;
 }

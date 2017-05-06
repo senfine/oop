@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cstdio>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -17,11 +18,12 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	vector<double> numbers = ImportNumbers(argc, argv);
+	vector<double> numbers;
+	numbers = ImportNumbers(cin);
 	PrintNumbers(numbers);
 	printf("\n");
 
-	numbers = MathLogic(numbers);
+	MathLogic(numbers);
 	
 	PrintNumbers(numbers);
 	

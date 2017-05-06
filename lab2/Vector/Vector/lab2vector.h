@@ -3,7 +3,8 @@
 #include <set>
 #include <vector>
 #include <iostream>
+#include <iterator>
 
-std::vector<double> ImportNumbers(int argc, char *argv[]);
-void PrintNumbers(std::vector<double> &numbers);
-std::vector<double> MathLogic(std::vector<double> &numbers);
+std::vector<double> ImportNumbers(std::istream & stream);
+void PrintNumbers(const std::vector<double> &numbers);
+void MathLogic(std::vector<double> &numbers);
